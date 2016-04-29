@@ -35,7 +35,10 @@ namespace LitmusWithAuthentication
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+
             services.AddMvc();
+            services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +64,12 @@ namespace LitmusWithAuthentication
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
+
+            app.UseCors(builder =>
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+            );
 
             app.UseMvc(routes =>
             {
